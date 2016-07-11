@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="GlosarioOpcionCreateDlg" widgetVar="GlosarioOpcionCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateGlosarioOpcionTitle}">
+            <h:form id="GlosarioOpcionCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{glosarioOpcionController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateGlosarioOpcionLabel_glosarioOpcionId}" for="glosarioOpcionId" />
+                        <p:inputText id="glosarioOpcionId" value="#{glosarioOpcionController.selected.glosarioOpcionId}" title="#{bundle.CreateGlosarioOpcionTitle_glosarioOpcionId}" required="true" requiredMessage="#{bundle.CreateGlosarioOpcionRequiredMessage_glosarioOpcionId}"/>
+                        <p:outputLabel value="#{bundle.CreateGlosarioOpcionLabel_opcion}" for="opcion" />
+                        <p:inputTextarea rows="4" cols="30" id="opcion" value="#{glosarioOpcionController.selected.opcion}" title="#{bundle.CreateGlosarioOpcionTitle_opcion}" required="true" requiredMessage="#{bundle.CreateGlosarioOpcionRequiredMessage_opcion}"/>
+                        <p:outputLabel value="#{bundle.CreateGlosarioOpcionLabel_esCorrecta}" for="esCorrecta" />
+                        <p:selectBooleanCheckbox id="esCorrecta" value="#{glosarioOpcionController.selected.esCorrecta}" required="true" requiredMessage="#{bundle.EditGlosarioOpcionRequiredMessage_esCorrecta}"/>
+                        <p:outputLabel value="#{bundle.CreateGlosarioOpcionLabel_cuestionarioId}" for="cuestionarioId" />
+                        <p:selectOneMenu id="cuestionarioId" value="#{glosarioOpcionController.selected.cuestionarioId}" required="true" requiredMessage="#{bundle.EditGlosarioOpcionRequiredMessage_cuestionarioId}">
+                            <f:selectItems value="#{cuestionarioController.itemsAvailableSelectOne}"
+                                           var="cuestionarioIdItem"
+                                           itemValue="#{cuestionarioIdItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateGlosarioOpcionLabel_glosarioId}" for="glosarioId" />
+                        <p:selectOneMenu id="glosarioId" value="#{glosarioOpcionController.selected.glosarioId}" required="true" requiredMessage="#{bundle.EditGlosarioOpcionRequiredMessage_glosarioId}">
+                            <f:selectItems value="#{glosarioController.itemsAvailableSelectOne}"
+                                           var="glosarioIdItem"
+                                           itemValue="#{glosarioIdItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{glosarioOpcionController.create}" value="#{bundle.Save}" update="display,:GlosarioOpcionListForm:datalist,:growl" oncomplete="handleSubmit(args,'GlosarioOpcionCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="GlosarioOpcionCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
